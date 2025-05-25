@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran 2025 - SMAS Muhammadiyah 1 Morotai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS tetap sama seperti semula */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a73e8;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #1a73e8;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #5f6368;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #1a73e8;
+            outline: none;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: #1a73e8;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 20px;
+            }
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-user-graduate"></i> Pendaftaran 2025</h1>
+        <form onsubmit="return sendToWhatsApp(event)">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nama Lengkap</label>
+                <input type="text" name="nama" placeholder="Nama lengkap siswa" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-venus-mars"></i> Jenis Kelamin</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="jk" value="Laki-laki" required>
+                        Laki-laki
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="jk" value="Perempuan">
+                        Perempuan
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-school"></i> Asal Sekolah</label>
+                <input type="text" name="asal_sekolah" placeholder="Nama sekolah sebelumnya" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-book-open"></i> Pilihan Jurusan</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="jurusan" value="IPA" required>
+                        IPA
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="jurusan" value="IPS">
+                        IPS
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> Alamat Lengkap</label>
+                <textarea name="alamat" rows="3" placeholder="Alamat tempat tinggal" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Nomor HP</label>
+                <input type="tel" name="no_hp" pattern="[0-9]{10,13}" placeholder="08xxxxxxxxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" name="email" placeholder="email@contoh.com" required>
+            </div>
+
+            <button type="submit">DAFTAR SEKARANG <i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <script>
+    function sendToWhatsApp(event) {
+        event.preventDefault();
+        
+        // Validasi nomor HP
+        const nohp = document.querySelector('[name="no_hp"]').value;
+        if(!/^[0-9]{10,13}$/.test(nohp)) {
+            alert("Nomor HP harus 10-13 digit angka");
+            return false;
+        }
+
+        // Mengambil data formulir
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+
+        // Membuat pesan WhatsApp
+        const message = `Pendaftaran Siswa Baru 2025
+Nama: ${data.nama}
+Jenis Kelamin: ${data.jk}
+Asal Sekolah: ${data.asal_sekolah}
+Jurusan: ${data.jurusan}
+Alamat: ${data.alamat}
+No HP: ${data.no_hp}
+Email: ${data.email}`;
+
+        // Encode message untuk URL
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/6285175002479?text=${encodedMessage}`;
+
+        // Membuka link WhatsApp
+        window.open(whatsappUrl, '_blank');
+        event.target.reset();
+        return false;
+    }
+    </script>
+</body>
+</html>
